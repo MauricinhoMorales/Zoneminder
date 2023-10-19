@@ -1,7 +1,5 @@
 FROM phusion/baseimage:master as builder
 
-LABEL maintainer="dlandon"
-
 ENV	DEBCONF_NONINTERACTIVE_SEEN="true" \
 	DEBIAN_FRONTEND="noninteractive" \
 	DISABLE_SSH="true" \
