@@ -1,23 +1,13 @@
-## Zoneminder Docker (Deprecated)
+## Zoneminder Docker
+
 (Current version: 1.36)
 
-This container will no longer be maintained or updated.  The current ZM Event Server is being phased out at the end of 2021 and this container will not be updated when a new ZM Event Server is released.
-
 ### About
+
 This is an easy to run dockerized image of [ZoneMinder](https://github.com/ZoneMinder/zoneminder) along with the the [ZM Event Notification Server](https://github.com/pliablepixels/zmeventnotification) and its machine learning subsystem.
 
-The configuration settings that are needed for this implementation of Zoneminder are pre-applied and do not need to be changed on the first run of Zoneminder.
-
-This version will now upgrade Zoneminder from previous versions.
-
-You can donate [here](https://www.paypal.com/us/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=EJGPC7B5CS66E).
-
-### Support
-There is minimal support for this docker container at this time.
-
-Go to the Zoneminder Forum [here](https://forums.zoneminder.com/) for support.
-
 ### Installation
+
 Install the docker container by going to a command line and enter the command:
 
 ```bash
@@ -49,9 +39,6 @@ dlandon/zoneminder.machine.learning
 
 For http:// access use: `-p 8080:80/tcp`
 
-### Shared Memory
-Set shared memory to half of your installed memory.
-
 ### Subsequent runs
 
 You can start/stop/restart the container anytime. You don't need to run the command above every time. If you have already created the container once (by the `docker run` command above), you can simply do a `docker stop Zoneminder` to stop it and a `docker start Zoneminder` to start it any time (or do a `docker restart Zoneminder`).
@@ -60,12 +47,6 @@ You can start/stop/restart the container anytime. You don't need to run the comm
 
 - Set `MULTI_PORT_START` and `MULTI_PORT_END` to define a port range for ES multi-port operation.
 - The commands above use a host path of `/mnt/Zoneminder` to map the container config and cache directories. This is going to be persistent directory that will retain data across container/image stop/restart/deletes. ZM mysql/other config data/event files/etc are kept here. You can change this to any directory in your host path that you want to.
-
-#### User Script
-
-You can enable a custom user script that will run every time the container is started.
-
-Put your script in the /mnt/Zoneminder/ folder and name it userscript.sh. The script will be executed each time the container is started before Zoneminder is started. Be sure to `chmod +x userscript.sh` so the script is executable. Set `ADVANCED_SCRIPT="1"` environment variable to enable your script.
 
 #### Adding Nvidia GPU support to the Zoneminder.
 
@@ -82,9 +63,9 @@ This will compile the opencv with GPU support. It takes a LONG time. You should 
 
 You will have to install the CuDNN runtime yourself based on your particular setup.
 
-#### Post install configuration and caveats
+#### Post install configuration
 
-- After successful installation, please refer to the [ZoneMinder](https://zoneminder.readthedocs.io/en/stable/), [Event Server and Machine Learning](https://zmeventnotification.readthedocs.io/en/latest/index.html) configuration guides from the authors of these components to set it up to your needs. Specifically, if you are using the Event Server and the machine learning hooks, you will need to customize `/etc/zm/zmeventnotification.ini` and `/etc/zm/objectconfig.ini`.
+- if you are using the Event Server and the machine learning hooks, you will need to customize `/etc/zm/zmeventnotification.ini` and `/etc/zm/objectconfig.ini`.
 
 - Note that by default, this docker build runs ZM on port 443 inside the docker container and maps it to port 8443 for the outside world. Therefore, if you are configuring `/etc/zm/objectconfig.ini` or `/etc/zm/zmeventnotification.ini` remember to use `https://localhost:443/<etc>` as the base URL.
 
