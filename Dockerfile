@@ -1,4 +1,4 @@
-FROM phusion/baseimage:master as builder
+FROM ubuntu:20.04 as builder
 
 ENV	DEBCONF_NONINTERACTIVE_SEEN="true" \
 	DEBIAN_FRONTEND="noninteractive" \
@@ -20,10 +20,7 @@ COPY init/ /etc/my_init.d/
 COPY defaults/ /root/
 COPY zmeventnotification/ /root/zmeventnotification/
 
-RUN	add-apt-repository -y ppa:iconnor/zoneminder-$ZM_VERS && \
-	add-apt-repository ppa:ondrej/php && \
-	add-apt-repository ppa:ondrej/apache2 && \
-	apt-get update && \
+RUN apt-get update && \
 	apt-get -y upgrade -o Dpkg::Options::="--force-confold" && \
 	apt-get -y dist-upgrade -o Dpkg::Options::="--force-confold" && \
 	apt-get -y install apache2 mariadb-server && \
@@ -87,10 +84,10 @@ RUN	cd /root && \
 	rm mysql_defaults.sql
 
 FROM build4 as build5
-RUN	mv /root/zoneminder /etc/init.d/zoneminder && \
-	chmod +x /etc/init.d/zoneminder && \
+RUN	mv /root/zoneminder /etc/my_init.d/zoneminder && \
+	chmod +x /etc/my_init.d/zoneminder && \
 	service mysql restart && \
-	sleep 5 && \
+	sleep 15 && \
 	service apache2 start && \
 	service zoneminder start
 
