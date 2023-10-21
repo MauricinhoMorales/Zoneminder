@@ -11,7 +11,7 @@ This is an easy to run dockerized image of [ZoneMinder](https://github.com/ZoneM
 Install the docker container by going to a command line and enter the command:
 
 ```bash
-docker pull dlandon/zoneminder.machine.learning
+docker pull mauriciormoralesr/zoneminder:latest
 ```
 
 This will pull the zoneminder docker image. Once it is installed you are ready to run the docker container.
@@ -34,7 +34,7 @@ docker run -d --name="Zoneminder" \
 -e MULTI_PORT_END="0" \
 -v "/mnt/Zoneminder":"/config":rw \
 -v "/mnt/Zoneminder/data":"/var/cache/zoneminder":rw \
-dlandon/zoneminder.machine.learning
+mauriciormoralesr/zoneminder:latest
 ```
 
 For http:// access use: `-p 8080:80/tcp`
